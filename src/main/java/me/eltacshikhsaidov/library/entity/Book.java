@@ -1,16 +1,14 @@
 package me.eltacshikhsaidov.library.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book")
-@Getter
-@Setter
-@ToString
+@Data
+@NoArgsConstructor
 public class Book {
 
     @Id
@@ -18,4 +16,8 @@ public class Book {
     private Long id;
     private String name;
     private Boolean isFree;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

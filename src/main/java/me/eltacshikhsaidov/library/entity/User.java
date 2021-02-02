@@ -1,16 +1,15 @@
 package me.eltacshikhsaidov.library.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "usr")
-@Getter
-@Setter
-@ToString
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -18,4 +17,9 @@ public class User {
     private Long id;
     private String username;
     private String password;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<Book> books;
 }

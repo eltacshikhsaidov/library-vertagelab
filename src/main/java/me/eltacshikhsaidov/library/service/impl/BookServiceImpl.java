@@ -1,6 +1,7 @@
 package me.eltacshikhsaidov.library.service.impl;
 
 import me.eltacshikhsaidov.library.entity.Book;
+import me.eltacshikhsaidov.library.entity.User;
 import me.eltacshikhsaidov.library.repository.BookRepository;
 import me.eltacshikhsaidov.library.service.BookService;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBookById(Book newBook, Long id) {
+    public Book updateBookById(Book newBook, User user, Long id) {
         return bookRepository.findById(id).map(book -> {
             book.setName(newBook.getName());
             book.setIsFree(newBook.getIsFree());
+            book.setUser(newBook.getUser());
             return bookRepository.save(book);
         }).orElseGet(() -> {
             newBook.setId(id);

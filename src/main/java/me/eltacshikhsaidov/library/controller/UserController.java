@@ -22,7 +22,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/all")
+    @PostMapping("/new")
     public User createOrSave(@RequestBody User user) {
         return userService.createOrSaveUser(user);
     }
