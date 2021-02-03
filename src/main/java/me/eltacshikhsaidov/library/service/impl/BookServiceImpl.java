@@ -4,7 +4,9 @@ import me.eltacshikhsaidov.library.entity.Book;
 import me.eltacshikhsaidov.library.entity.User;
 import me.eltacshikhsaidov.library.exception.BookNotFoundException;
 import me.eltacshikhsaidov.library.repository.BookRepository;
+import me.eltacshikhsaidov.library.repository.UserRepository;
 import me.eltacshikhsaidov.library.service.BookService;
+import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +16,11 @@ import java.util.Optional;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, UserRepository userRepository) {
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -36,11 +40,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBookById(Book newBook, User user, Long id) {
+    public Book updateBookById(Book newBook, Long id) {
         return bookRepository.findById(id).map(book -> {
             book.setName(newBook.getName());
-            book.setIsFree(newBook.getIsFree());
             book.setUser(newBook.getUser());
+
+            book.setIsFree(newBook.getUser() == null);
+
             return bookRepository.save(book);
         }).orElseGet(() -> {
             newBook.setId(id);
@@ -54,6 +60,20 @@ public class BookServiceImpl implements BookService {
         Optional<Book> bookOptional = bookRepository.findByName(book.getName());
         if (bookOptional.isPresent()) {
             throw new IllegalStateException("Book name is already present");
+        }
+
+        Optional<User> userOptional = userRepository.findByUsername(book.getUser().getUsername());
+
+        if (book.getUser() == null) {
+            book.setIsFree(true);
+            book.setUser(null);
+        } else {
+            book.setIsFree(false);
+            if (userOptional.isPresent()) {
+                book.setUser(userOptional.get());
+            } else {
+                throw new IllegalStateException("user not found");
+            }
         }
 
         return bookRepository.save(book);

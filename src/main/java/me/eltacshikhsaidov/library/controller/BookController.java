@@ -3,6 +3,7 @@ package me.eltacshikhsaidov.library.controller;
 import me.eltacshikhsaidov.library.entity.Book;
 import me.eltacshikhsaidov.library.entity.User;
 import me.eltacshikhsaidov.library.service.BookService;
+import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,9 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
-    @PostMapping("/new")
+    @PostMapping("/all")
     public Book createOrSave(@RequestBody Book book) {
+
         return bookService.createOrSaveBook(book);
     }
 
@@ -40,6 +42,6 @@ public class BookController {
 
     @PutMapping("/book/{id}")
     public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
-        return bookService.updateBookById(book, book.getUser(), id);
+        return bookService.updateBookById(book, id);
     }
 }
