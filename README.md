@@ -19,7 +19,7 @@ Testing project for interview
 
 #
 
-<img align="center" alt = "allUsers" width="30%" src="https://github.com/eltacshikhsaidov/library-vertagelab/blob/main/getUsers.png?raw=true">
+<img align="center" alt = "allUsers" width="60%" src="https://github.com/eltacshikhsaidov/library-vertagelab/blob/main/getUsers.png?raw=true">
 
 <img align="center" alt = "allUsers" width="auto" src="https://github.com/eltacshikhsaidov/library-vertagelab/blob/main/getBooks.png?raw=true">
 
