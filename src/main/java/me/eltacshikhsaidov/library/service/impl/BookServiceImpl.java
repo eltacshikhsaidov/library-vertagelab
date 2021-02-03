@@ -2,11 +2,13 @@ package me.eltacshikhsaidov.library.service.impl;
 
 import me.eltacshikhsaidov.library.entity.Book;
 import me.eltacshikhsaidov.library.entity.User;
+import me.eltacshikhsaidov.library.exception.BookNotFoundException;
 import me.eltacshikhsaidov.library.repository.BookRepository;
 import me.eltacshikhsaidov.library.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -24,7 +26,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBookById(Long id) {
-        return bookRepository.findById(id).get();
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @Override
@@ -47,6 +50,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createOrSaveBook(Book book) {
+
+        Optional<Book> bookOptional = bookRepository.findByName(book.getName());
+        if (bookOptional.isPresent()) {
+            throw new IllegalStateException("Book name is already present");
+        }
+
         return bookRepository.save(book);
     }
 }
