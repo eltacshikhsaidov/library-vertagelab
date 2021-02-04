@@ -1,14 +1,14 @@
 package me.eltacshikhsaidov.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "book")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Book {
 

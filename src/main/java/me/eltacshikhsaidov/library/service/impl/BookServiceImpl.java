@@ -6,7 +6,6 @@ import me.eltacshikhsaidov.library.exception.BookNotFoundException;
 import me.eltacshikhsaidov.library.repository.BookRepository;
 import me.eltacshikhsaidov.library.repository.UserRepository;
 import me.eltacshikhsaidov.library.service.BookService;
-import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +35,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(Long id) {
+        bookRepository.findById(id).get().setUser(null);
         bookRepository.deleteById(id);
     }
 

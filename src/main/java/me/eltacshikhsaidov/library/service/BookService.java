@@ -1,7 +1,6 @@
 package me.eltacshikhsaidov.library.service;
 
 import me.eltacshikhsaidov.library.entity.Book;
-import me.eltacshikhsaidov.library.entity.User;
 
 import java.util.List;
 
