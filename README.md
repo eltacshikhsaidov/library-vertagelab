@@ -17,7 +17,7 @@ Testing project for interview
 - DELETE <code>/books/book/id</code> delete book
 - PUT <code>/books/book/id</code> updating book
 - GET <code>/books/book/id</code> get specific book 
-- PUT <code>/books/book/return/{book_id}</code> making book free for use
+- PUT <code>/books/book/return/{book_id}</code> returning book free for use
 
 #
 
