@@ -3,19 +3,21 @@ Testing project for interview
 
 # Endpoints for user entity
 
-- GET /users/all return all users
-- POST /users/all adding new user
-- DELETE /users/user/id delete user
-- PUT /users/user/id updating user
-- GET /users/user/id get specific user 
+- GET <code>/users/all</code> return all users
+- POST <code>/users/all</code> adding new user
+- DELETE <code>/users/user/id</code> delete user
+- PUT <code>/users/user/id</code> updating user
+- GET <code>/users/user/id</code> get specific user 
+- PUT <code>/users/user/take/{user_id}?book_id={book_id}</code> taking book by specific user
 
 # Endpoints for book entity
 
-- GET /books/all return all books
-- POST /books/all adding new book
-- DELETE /books/book/id delete book
-- PUT /books/book/id updating book
-- GET /books/book/id get specific book 
+- GET <code>/books/all</code> return all books
+- POST <code>/books/all</code> adding new book
+- DELETE <code>/books/book/id</code> delete book
+- PUT <code>/books/book/id</code> updating book
+- GET <code>/books/book/id</code> get specific book 
+- PUT <code>/books/book/return/{book_id}</code> making book free for use
 
 #
 
