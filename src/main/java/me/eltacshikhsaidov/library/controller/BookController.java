@@ -1,9 +1,7 @@
 package me.eltacshikhsaidov.library.controller;
 
 import me.eltacshikhsaidov.library.entity.Book;
-import me.eltacshikhsaidov.library.entity.User;
 import me.eltacshikhsaidov.library.service.BookService;
-import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +41,23 @@ public class BookController {
     @PutMapping("/book/{id}")
     public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
         return bookService.updateBookById(book, id);
+    }
+
+    @PutMapping("/book/return/{book_id}")
+    public String returnBook(@PathVariable Long book_id) {
+
+        Book book = bookService.getBookById(book_id);
+
+        if (book != null) {
+            if (book.getUser() != null) {
+                book.setUser(null);
+                bookService.updateBookById(book, book_id);
+            } else {
+                throw new IllegalStateException("book with id=" + book_id + " is free");
+            }
+        } else {
+            throw new IllegalStateException("book with id=" + book_id + " not found");
+        }
+        return "now book with id=" + book_id + " is free, someone can take it!";
     }
 }

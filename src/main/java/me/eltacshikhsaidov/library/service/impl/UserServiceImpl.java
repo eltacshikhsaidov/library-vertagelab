@@ -2,6 +2,7 @@ package me.eltacshikhsaidov.library.service.impl;
 
 import me.eltacshikhsaidov.library.entity.User;
 import me.eltacshikhsaidov.library.exception.UserNotFoundException;
+import me.eltacshikhsaidov.library.repository.BookRepository;
 import me.eltacshikhsaidov.library.repository.UserRepository;
 import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BookRepository bookRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+
+    public UserServiceImpl(UserRepository userRepository, BookRepository bookRepository) {
         this.userRepository = userRepository;
+        this.bookRepository = bookRepository;
     }
 
     @Override
@@ -31,8 +35,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-
-
         userRepository.deleteById(id);
     }
 
