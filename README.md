@@ -29,6 +29,8 @@ As you can see if we don't add user for specific book then it automatically beco
 
 <img align="center" alt = "allUsers" width="auto" src="https://github.com/eltacshikhsaidov/library-vertagelab/blob/main/returnBook.png?raw=true">
 
+<img align="center" alt = "allUsers" width="auto" src="https://github.com/eltacshikhsaidov/library-vertagelab/blob/main/takeBook.png?raw=true">
+
 I creaetd isFree in Book entity for checking if book is taken or not. If it is taken we assign it false, otherwise true.
 Becaue for one user could have multiple books, I applied @OneToMany for user and @ManyToOne for book.
 
