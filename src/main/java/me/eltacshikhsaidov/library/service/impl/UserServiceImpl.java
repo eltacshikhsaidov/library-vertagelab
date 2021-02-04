@@ -9,10 +9,8 @@ import me.eltacshikhsaidov.library.service.BookService;
 import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
