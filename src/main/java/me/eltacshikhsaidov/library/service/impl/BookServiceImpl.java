@@ -1,15 +1,12 @@
 package me.eltacshikhsaidov.library.service.impl;
 
-import me.eltacshikhsaidov.library.entity.Book;
-import me.eltacshikhsaidov.library.entity.User;
+import me.eltacshikhsaidov.library.entity.*;
 import me.eltacshikhsaidov.library.exception.BookNotFoundException;
-import me.eltacshikhsaidov.library.repository.BookRepository;
-import me.eltacshikhsaidov.library.repository.UserRepository;
+import me.eltacshikhsaidov.library.repository.*;
 import me.eltacshikhsaidov.library.service.BookService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -79,5 +76,22 @@ public class BookServiceImpl implements BookService {
         }
 
         return bookRepository.save(book);
+    }
+
+    @Override
+    public String returnBook(Long book_id) {
+        Book book = getBookById(book_id);
+
+        if (book != null) {
+            if (book.getUser() != null) {
+                book.setUser(null);
+                updateBookById(book, book_id);
+            } else {
+                throw new IllegalStateException("book with id=" + book_id + " is free");
+            }
+        } else {
+            throw new IllegalStateException("book with id=" + book_id + " not found");
+        }
+        return "now book with id=" + book_id + " is free, someone can take it!";
     }
 }

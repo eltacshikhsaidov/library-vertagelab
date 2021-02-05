@@ -1,16 +1,12 @@
 package me.eltacshikhsaidov.library.service.impl;
 
-import me.eltacshikhsaidov.library.entity.Book;
-import me.eltacshikhsaidov.library.entity.User;
+import me.eltacshikhsaidov.library.entity.*;
 import me.eltacshikhsaidov.library.exception.UserNotFoundException;
-import me.eltacshikhsaidov.library.repository.BookRepository;
-import me.eltacshikhsaidov.library.repository.UserRepository;
-import me.eltacshikhsaidov.library.service.BookService;
-import me.eltacshikhsaidov.library.service.UserService;
+import me.eltacshikhsaidov.library.repository.*;
+import me.eltacshikhsaidov.library.service.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -78,5 +74,28 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
-}
 
+    @Override
+    public String takeBook(Long user_id, Long book_id) {
+        User user = getUserById(user_id);
+        Book book = bookService.getBookById(book_id);
+
+        if (user != null) {
+            if (book != null) {
+                if (book.getUser() == null) {
+                    book.setUser(user);
+                    bookService.updateBookById(book, book_id);
+                } else {
+                    throw new IllegalStateException("book with id=" + book_id +
+                            " is already taken by another user");
+                }
+            } else {
+                throw new IllegalStateException("book with id=" + book_id + " not found");
+            }
+        } else {
+            throw new IllegalStateException("user with id=" + user_id + " not found");
+        }
+
+        return "book with id=" + book_id + " is taken by user with id=" + user_id;
+    }
+}

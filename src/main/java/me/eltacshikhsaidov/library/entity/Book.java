@@ -1,6 +1,5 @@
 package me.eltacshikhsaidov.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +17,8 @@ public class Book {
     private String name;
     private Boolean isFree;
 
-//    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
 }

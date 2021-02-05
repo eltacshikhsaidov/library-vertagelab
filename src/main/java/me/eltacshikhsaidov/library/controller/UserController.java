@@ -1,8 +1,6 @@
 package me.eltacshikhsaidov.library.controller;
 
-import me.eltacshikhsaidov.library.entity.Book;
 import me.eltacshikhsaidov.library.entity.User;
-import me.eltacshikhsaidov.library.service.BookService;
 import me.eltacshikhsaidov.library.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +12,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final BookService bookService;
 
-    public UserController(UserService userService, BookService bookService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.bookService = bookService;
     }
 
     @GetMapping("/all")
@@ -49,25 +45,6 @@ public class UserController {
     @PutMapping("/user/take/{user_id}")
     public String takeBook(@PathVariable Long user_id,
                            @RequestParam(name = "book_id", defaultValue = "") Long book_id) {
-        User user = userService.getUserById(user_id);
-        Book book = bookService.getBookById(book_id);
-
-        if (user != null) {
-            if (book != null) {
-                if (book.getUser() == null) {
-                    book.setUser(user);
-                    bookService.updateBookById(book, book_id);
-                } else {
-                    throw new IllegalStateException("book with id=" + book_id +
-                            " is already taken by another user");
-                }
-            } else {
-                throw new IllegalStateException("book with id=" + book_id + " not found");
-            }
-        } else {
-            throw new IllegalStateException("user with id=" + user_id + " not found");
-        }
-
-        return "book with id=" + book_id + " is taken by user with id=" + user_id;
+        return userService.takeBook(user_id, book_id);
     }
 }

@@ -11,4 +11,6 @@ public interface UserService {
     void deleteUserById(Long id);
     User updateUserById(User newUser, Long id);
     User createOrSaveUser(User user);
+    String takeBook(Long user_id, Long book_id);
+
 }

@@ -24,7 +24,6 @@ public class BookController {
 
     @PostMapping("/all")
     public Book createOrSave(@RequestBody Book book) {
-
         return bookService.createOrSaveBook(book);
     }
 
@@ -45,19 +44,6 @@ public class BookController {
 
     @PutMapping("/book/return/{book_id}")
     public String returnBook(@PathVariable Long book_id) {
-
-        Book book = bookService.getBookById(book_id);
-
-        if (book != null) {
-            if (book.getUser() != null) {
-                book.setUser(null);
-                bookService.updateBookById(book, book_id);
-            } else {
-                throw new IllegalStateException("book with id=" + book_id + " is free");
-            }
-        } else {
-            throw new IllegalStateException("book with id=" + book_id + " not found");
-        }
-        return "now book with id=" + book_id + " is free, someone can take it!";
+        return bookService.returnBook(book_id);
     }
 }
