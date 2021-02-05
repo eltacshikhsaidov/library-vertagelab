@@ -3,7 +3,7 @@ Testing project for interview
 
 # Endpoints for user entity
 
-- GET <code>/users/all</code> return all users
+- GET <code style="background-color:green">/users/all</code> return all users
 - POST <code>/users/all</code> adding new user
 - DELETE <code>/users/user/id</code> delete user
 - PUT <code>/users/user/id</code> updating user
